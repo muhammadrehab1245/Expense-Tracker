@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/main.af7b2066.css","mappings":"AAAA,EAGI,qBAAsB,CACtB,kBAAqB,CAHrB,QAAW,CACX,SAGF","sources":["index.css"],"sourcesContent":["*{\n    margin: 0px;\n    padding: 0px;\n    box-sizing: border-box;\n    font-family: \"Roboto\";\n  }"],"names":[],"sourceRoot":""}
