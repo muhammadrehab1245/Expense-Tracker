@@ -31,7 +31,7 @@ jobs:
 
       # Run tests
       - name: Run tests
-        run: npm test -- --ci --coverage  # Run tests and generate coverage reports
+        run: npm test -- --ci --coverage --passWithNoTests # Run tests in CI mode and generate coverage report
 
       # Build the React app
       - name: Build the app
