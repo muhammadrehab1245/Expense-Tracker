@@ -1,0 +1,54 @@
+name: CI/CD Pipeline for React App
+
+# Trigger the pipeline when there are changes on the main branch or pull requests
+on:
+  push:
+    branches:
+      - main # Trigger on push to main branch
+  pull_request:
+    branches:
+      - main # Trigger on pull requests to main branch
+
+jobs:
+  # Build and test job
+  build:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+
+    steps:
+      # Check out the code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'  # Set the Node.js version you need
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Run tests
+      - name: Run tests
+        run: npm test -- --ci --coverage  # Run tests and generate coverage reports
+
+      # Build the React app
+      - name: Build the app
+        run: npm run build  # This will create the 'build' directory for production
+
+  # Deploy the app (if you want to deploy to GitHub Pages or any other server)
+  deploy:
+    runs-on: ubuntu-latest  # Use Ubuntu runner
+    needs: build  # Ensure the build job completes before deploying
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Deploy to GitHub Pages (or customize this for other hosting)
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.SECRET_TOKEN }}  # GitHub token for authentication
+          publish_dir: ./build  # The directory to publish (the build output)
